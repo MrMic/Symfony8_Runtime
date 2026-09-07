@@ -1,0 +1,14 @@
+{
+  "type": "project",
+  "require": {
+    "symfony/framework-bundle": "^8.1",
+    "symfony/runtime": "^8.1"
+  },
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "config": {
+    "allow-plugins": {
+      "symfony/runtime": true
+    }
+  }
+}
