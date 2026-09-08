@@ -1,11 +1,17 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\HttpKernel\Kernel;
 
 require_once __DIR__ . '/vendor/autoload_runtime.php';
 
+class AppKernel extends Kernel
+{
+    use MicroKernelTrait;
+}
+
 return function () {
 
-    return new Response('<h1>Hello World!</h1>');
+    return new AppKernel('dev', true);
 
 };
