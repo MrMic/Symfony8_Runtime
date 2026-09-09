@@ -1,17 +1,18 @@
 <?php
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 
 require_once __DIR__ . '/vendor/autoload_runtime.php';
 
-class AppKernel extends Kernel
+class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 }
 
-return function () {
+return function (array $context) {
+    /* dd($context); */
 
-    return new AppKernel('dev', true);
+    return new Kernel($context['APP_ENV'], (bool) $context['APP_DEBUG']);
 
 };
