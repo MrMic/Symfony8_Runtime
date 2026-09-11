@@ -13,18 +13,22 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    #[Route(path: '/', name: 'home')]
+    #[Route(path: '/', name: 'app_home')]
     public function home(Request $request, LoggerInterface $logger): Response
     {
         /* dd($request->query->all()); */
         /* $logger->info('Homepage accessed', ['ip' => $request->getClientIp()]); */
         $name = $request->query->get('name', 'world');
-        /* dd($name); */
+        $currentTime = new DateTimeImmutable(timezone: new DateTimeZone('Europe/Paris'))->format('H:i:s');
 
-        return new Response('<h1>Hello ' . htmlspecialchars($name) . '!<h1>');
+        return new Response(sprintf(
+            '<h1>Hello %s at %s!</h1>',
+            htmlspecialchars(ucfirst($name)),
+            $currentTime,
+        ));
     }
 
-    #[Route(path: '/about', name: 'about')]
+    #[Route(path: '/about', name: 'app_about')]
     public function about(): Response
     {
         return new Response('<h1>About</h1>');
