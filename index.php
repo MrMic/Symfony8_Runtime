@@ -1,11 +1,14 @@
 <?php
 
 use Psr\Log\LoggerInterface;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Attribute\Route;
+use Twig\Environment;
 
 require_once __DIR__ . '/vendor/autoload_runtime.php';
 
@@ -13,25 +16,35 @@ class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    #[Route(path: '/', name: 'app_home')]
-    public function home(Request $request, LoggerInterface $logger): Response
+    public function registerBundles(): iterable
     {
+        yield new FrameworkBundle;
+        yield new TwigBundle;
+    }
+
+    #[Route(path: '/', name: 'home')]
+    public function home(
+        Request $request,
+        LoggerInterface $logger,
+        Environment $twig,
+    ): Response {
         /* dd($request->query->all()); */
         /* $logger->info('Homepage accessed', ['ip' => $request->getClientIp()]); */
         $name = $request->query->get('name', 'world');
         $currentTime = new DateTimeImmutable(timezone: new DateTimeZone('Europe/Paris'))->format('H:i:s');
 
-        return new Response(sprintf(
-            '<h1>Hello %s at %s!</h1>',
-            htmlspecialchars(ucfirst($name)),
-            $currentTime,
-        ));
+        return new Response(
+            $twig->render('home.html.twig', [
+                'name' => $name,
+                'current_time' => $currentTime,
+            ])
+        );
     }
 
-    #[Route(path: '/about', name: 'app_about')]
-    public function about(): Response
+    #[Route(path: '/about', name: 'about')]
+    public function about(Environment $twig): Response
     {
-        return new Response('<h1>About</h1>');
+        return new Response($twig->render('about.html.twig'));
     }
 }
 
