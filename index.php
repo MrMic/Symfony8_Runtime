@@ -22,7 +22,7 @@ class Kernel extends BaseKernel
         yield new TwigBundle;
     }
 
-    #[Route(path: '/', name: 'home')]
+    #[Route(path: '/', name: 'home', methods: ['GET'])]
     public function home(
         Request $request,
         LoggerInterface $logger,
@@ -31,17 +31,13 @@ class Kernel extends BaseKernel
         /* dd($request->query->all()); */
         /* $logger->info('Homepage accessed', ['ip' => $request->getClientIp()]); */
         $name = $request->query->get('name', 'world');
-        $currentTime = new DateTimeImmutable(timezone: new DateTimeZone('Europe/Paris'))->format('H:i:s');
 
         return new Response(
-            $twig->render('home.html.twig', [
-                'name' => $name,
-                'current_time' => $currentTime,
-            ])
+            $twig->render('home.html.twig', compact('name'))
         );
     }
 
-    #[Route(path: '/about', name: 'about')]
+    #[Route(path: '/about', name: 'about', methods: ['GET'])]
     public function about(Environment $twig): Response
     {
         return new Response($twig->render('about.html.twig'));

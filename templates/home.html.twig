@@ -1,1 +1,5 @@
-<h1>Hello {{ name|title }} at {{ current_time }}!</h1>
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <h1>Hello {{ name|title }} at {{ 'now'|date('H:i:s', 'Europe/Paris') }}!</h1>
+{% endblock %}
