@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        Hello Symfony
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <nav>
+      <a href="{{ path('home') }}">Home</a> &middot;
+      <a href="{{ path('about') }}">About</a>
+    </nav>
+    {% block body %}
+
+    {% endblock %}
+  </body>
+</html>
