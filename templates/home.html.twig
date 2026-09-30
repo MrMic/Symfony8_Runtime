@@ -2,4 +2,11 @@
 
 {% block body %}
   <h1>Hello {{ name|title }} at {{ 'now'|date('H:i:s', 'Europe/Paris') }}!</h1>
+
+  <p>
+    {{ pluralize(3, 'event', 'events') }}
+  </p>
+  <p>
+    {{ pluralize(3, 'person', 'people') }}
+  </p>
 {% endblock %}

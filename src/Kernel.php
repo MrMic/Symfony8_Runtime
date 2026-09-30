@@ -24,7 +24,9 @@ class Kernel extends BaseKernel
         // Controllers must be autowired services, otherwise their typed
         // arguments (LoggerInterface, Twig\Environment) cannot be resolved.
         $container->services()
-            ->defaults()->autowire()->autoconfigure()
+            ->defaults()
+            ->autowire()
+            ->autoconfigure()
             ->load('App\\', dirname(__DIR__) . '/src');
     }
 
