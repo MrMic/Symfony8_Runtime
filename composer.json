@@ -4,7 +4,8 @@
     "symfony/framework-bundle": "^8.1",
     "symfony/runtime": "^8.1",
     "symfony/dotenv": "^8.1",
-    "symfony/twig-bundle": "^8.1"
+    "symfony/twig-bundle": "^8.1",
+    "symfony/console": "^8.1"
   },
   "license": "MIT",
   "minimum-stability": "stable",
