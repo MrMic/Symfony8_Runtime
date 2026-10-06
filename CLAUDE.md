@@ -18,6 +18,7 @@ dependency only when the task actually needs it.
 ```bash
 composer install                              # deps
 php -S localhost:8000 -t public public/index.php   # dev server
+frankenphp php-server --no-compress --listen 0.0.0.0:8001 -r public/   # dev server (FrankenPHP, classic mode)
 rm -rf var/cache                              # reset the compiled container after config changes
 composer require <pkg>                        # deps (ask before adding, per global CLAUDE.md)
 ```
@@ -64,5 +65,7 @@ have been used). It is gitignored and safe to delete.
   `Failed opening required '.../getErrorControllerService.php'`. `rm -rf var/cache`.
 - `.env` is read by the runtime *before* the kernel exists, so `APP_ENV` cannot be
   changed from inside the kernel. Override it in the shell: `APP_ENV=prod php -S ...`.
+- FrankenPHP (Homebrew build) needs `--no-compress`: without it, startup fails with
+  `module not registered: http.encoders.br`. It runs its own PHP, separate from the CLI's.
 - The dev server needs `-t public`; without it the docroot is the repo root and `vendor/`,
   `.env` and `composer.json` become web-readable.
